@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="style.css">
 
@@ -32,7 +31,7 @@
     </nav>
 
     <!-- side bar -->
-    <div class="sidebar">
+    <div class="sidebar shadow-sm">
         <div class="profile-img">
             <img class="" src="img/profile.png" alt="">
         </div>
@@ -50,52 +49,87 @@
     <div class="main">
         <div class="container">
 
-            <!-- Active Trolleys Card -->
-            <div class="shadow trolley-card">
-                Active Trolleys
-                <div class="active-trolley">
-                    0
+            <div class="row">
+                <div class="col">
+                    <!-- Active Trolleys Card -->
+                    <div class="shadow-sm trolley-card">
+                        Active Trolleys
+                        <div class="active-trolley">
+                            2
+                        </div>
+                        <div class="total-trolley">Total: 0</div>
+                    </div>
                 </div>
-                <div class="total-trolley">Total: 0</div>
+                <div class="col">
+                    <!-- Active Trolleys Card -->
+                    <div class="shadow-sm temp-card">
+                        <div id="temp-date-id">Thursday, August 13 2020</div>
+                        <div class="mt-3"><b>Highest Temperature</b><br><span>30.0 (trolly1)</span></div>
+                        <div><b>Highest Temperature</b><br><span>11.1 (trolly1)</span></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Trolley Data Analysis Chart with Chart.js -->
-            <div class="chart-wrapper shadow">
+            <div class="chart-wrapper shadow-sm">
                 <p><b>Temperature recording</b><br>Today's recording</p>
                 <canvas id="myChart"></canvas>
             </div>
-            
+
         </div>
     </div>
-    
-
 
     <!-- --------------------------------------------- -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <!-- --------------------------------------------- -->
 
     <!-- Create Simple Chart -->
     <script>
-        var date_time = ['Tue 11', '2 AM', '6 AM', '9 AM','12 PM','3 PM','9 AM', 'Web 12'];
+        var temps = [12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+        var date_time = ['Tue 11', '2 AM', '4 AM', '6 AM', '8 AM', '10 AM',
+            '12 PM', '2 PM', '4 PM', '6 PM', '8 AM', '10 AM', 'Web 12'
+        ];
+        var trolley_1_data = [20, 24, 30, 17, 29, 15, 25, 23, 22, 21, 16, 25, 12]
+        var trolley_2_data = [12, 13, 14, 16, 16, 26, 27, 28, 29, 30, 30, 30, 30]
         var ctx = document.getElementById('myChart');
-        
+
         // Chart Object
         var myChart = new Chart(ctx, {
             type: 'line', // Here we need to specify the type of chart we need!
             data: {
                 labels: date_time, // list of x-axis name
-                datasets: [{}]
+                datasets: [{
+                    label: 'trolley1',
+                    data: trolley_1_data,
+                    backgroundColor: "rgba(0, 0, 60, 0.2)",
+                    borderColor: "rgba(0, 0, 20, 1)",
+                    borderWidth: 1,
+                    fill: false, // to remove fill under fill color
+                    lineTension: 0
+                }, {
+                    label: 'trolley2',
+                    data: trolley_2_data,
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 1,
+                    fill: false, // to remove fill under fill color
+                    lineTension: 0
+                }]
+            }, //Handle Chart Options
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
             }
-        }
-        )
+        });
     </script>
 </body>
 
