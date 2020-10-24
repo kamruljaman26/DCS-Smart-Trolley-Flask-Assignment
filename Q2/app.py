@@ -1,27 +1,23 @@
-from flask import Flask
-import pymongo
-from database import db, my_col
-
-
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from database import get_chart_data
 
 app = Flask(__name__)
 
-# client = pymongo.MongoClient("mongodb+srv://zali:<password>@cluster0.fvqsw.mongodb.net/<dbname>?retryWrites=true&w=majority")
-# db = client.test
-
-# client = pymongo.MongoClient("mongodb+srv://zali:<password>@cluster0.fvqsw.mongodb.net/<dbname>?retryWrites=true&w=majority")
-# db = client.test
-
-
+# Render Home Page
 @app.route('/')
 def index():
-    return 'hello word'
+    return render_template('index.html')
 
-#test to insert data to the data base
-@app.route("/test")
-def test():
-    db.db.collection.insert_one({"name": "John"})
-    return "Connected to the data base!"
+
+# Get All data In JSON by API
+@app.route('/api/v1/get_chart_data', methods=['GET'])
+def chart_data():
+    if 'date' in request.args:
+        date = str(request.args['date'])
+    else:
+        return "Error: No date field provided. Please specify an date."
+
+    return jsonify(get_chart_data(date=date))
 
 
 # Main Function
