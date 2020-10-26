@@ -126,7 +126,7 @@
     border-radius: 5px;
 }
 
-#temp-date-id {
+.temp-date-id {
     float: right;
     color: #818181;
     font-size: 12px;
